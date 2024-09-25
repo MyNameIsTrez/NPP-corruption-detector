@@ -25,6 +25,7 @@ Open a new terminal (Ctrl+Alt+T on Ubuntu), change `NPP_PATH` its value in the b
 NPP_PATH=~/snap/steam/common/.local/share/Steam/steamapps/common/N++
 while true; do
     libTAS --non-interactive --read $NPP_PATH/N++.bin.x86_64.ltm $NPP_PATH/N++.bin.x86_64
+    ./main.py
 done
 ```
 
