@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import struct
 import sys
 
 # A patch is (name, offset, size, expected change)
@@ -14,6 +13,20 @@ patches = (
     ("Number of keypresses (right)", 0x12EC, 8, 0x16),
     ("Number of attempts (episodes)", 0x130C, 8, 0x3),
     ("Number of victories (episodes)", 0x1314, 8, 0x1),
+    ("?", 0x1354, 4, 0x5),
+    ("?", 0x135C, 4, 0x5),
+    ("Time? (days)", 0x1377, 1, None),
+    ("Time? (hours)", 0x1378, 1, None),
+    ("Time? (minutes)", 0x1379, 1, None),
+    ("Time? (seconds)", 0x137A, 1, None),
+    ("Game time (days)", 0x1381, 1, None),
+    ("Game time (hours)", 0x1382, 1, None),
+    ("Game time (minutes)", 0x1383, 1, None),
+    ("Game time (seconds)", 0x1384, 1, None),
+    ("Menu time (days)", 0x138B, 1, None),
+    ("Menu time (hours)", 0x138C, 1, None),
+    ("Menu time (minutes)", 0x138D, 1, None),
+    ("Menu time (seconds)", 0x138E, 1, None),
 )
 
 
@@ -28,22 +41,25 @@ def main():
             print(f"\npatch name: {name}")
 
             previous_file.seek(offset)
-            previous_value_bytes = previous_file.read(8)
+            previous_value_bytes = previous_file.read(size)
             print(f"previous_value_bytes: {previous_value_bytes}")
             current_file.seek(offset)
-            current_value_bytes = current_file.read(8)
+            current_value_bytes = current_file.read(size)
             print(f"current_value_bytes: {current_value_bytes}")
 
-            previous_value = struct.unpack_from("<Q", previous_value_bytes)[0]
+            previous_value = int.from_bytes(previous_value_bytes, "little")
             print(f"previous_value: {previous_value}")
-            current_value = struct.unpack_from("<Q", current_value_bytes)[0]
+            current_value = int.from_bytes(current_value_bytes, "little")
             print(f"current_value: {current_value}")
 
-            change = current_value - previous_value
-            print(f"change: {change}")
-            print(f"expected_change: {expected_change}")
+            if expected_change == None:
+                print("no expected change")
+            else:
+                change = current_value - previous_value
+                print(f"change: {change}")
+                print(f"expected_change: {expected_change}")
 
-            assert change == expected_change
+                assert change == expected_change
 
             new_value = bytes.fromhex("42" * size)
             previous_file.seek(offset)
