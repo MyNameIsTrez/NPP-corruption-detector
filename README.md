@@ -38,7 +38,11 @@ while true; do
 
     cp $NPROFILE_PATH nprofile_current
 
-    ./patch.py
+    ./patch.py nprofile_previous nprofile_current || break
+
+    xxd -R never nprofile_previous nprofile_previous.xxd
+    xxd -R never nprofile_current nprofile_current.xxd
+    diff nprofile_previous.xxd nprofile_current.xxd || break
 done
 ```
 
@@ -57,12 +61,4 @@ Listing all `nprofile` (save files) on the computer, using `ls -lh` to show thei
 
 ```bash
 find ~ -name nprofile | xargs ls -l
-```
-
-Diffing `nprofile_previous` against `nprofile_current`:
-
-```bash
-xxd -R never nprofile_previous nprofile_previous.xxd
-xxd -R never nprofile_current nprofile_current.xxd
-diff nprofile_previous.xxd nprofile_current.xxd
 ```

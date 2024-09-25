@@ -1,3 +1,5 @@
+Thanks to Eddy/eddymatagallos for putting this file together!
+
 +----------+------+-------------------------------------------------+
 |  Offset  | Size | Meaning                                         |
 +----------+------+-------------------------------------------------+
