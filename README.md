@@ -1,5 +1,9 @@
 # NPP-corruption-detector
 
+This program automatically recreates and detects an infamous save file corruption bug in the game [N++](https://en.wikipedia.org/wiki/N%2B%2B).
+
+This program has been developed on Ubuntu 24.04, but it should work on most other Linux distributions.
+
 ## libTAS for N++ setup
 
 1. Download the latest version of libTAS [here](https://ci.appveyor.com/project/clementgallet/libtas/build/artifacts), and install it
@@ -19,17 +23,26 @@ My PC needs to have the resolution all the way down to 1280x720 in order to run 
 
 ## Replaying the recording in an infinite loop using libTAS
 
-Open a new terminal (Ctrl+Alt+T on Ubuntu), change `NPP_PATH` its value in the below command so it points to where you've installed N++, and run it:
+1. In this cloned/downloaded repository its directory, open a new terminal (Ctrl+Alt+T on Ubuntu, and then use `cd` to navigate to the directory)
+2. Change `NPROFILE_PATH` its value in the below command so it points to where your `nprofile` file is
+3. Change `NPP_BIN_PATH` its value in the below command so it points to where your `N++.bin.x86_64` file is
+4. Run the command
 
 ```bash
-NPP_PATH=~/snap/steam/common/.local/share/Steam/steamapps/common/N++
+NPROFILE_PATH=~/.local/share/Metanet/N++/nprofile
+NPP_BIN_PATH=~/snap/steam/common/.local/share/Steam/steamapps/common/N++/N++.bin.x86_64
 while true; do
-    libTAS --non-interactive --read $NPP_PATH/N++.bin.x86_64.ltm $NPP_PATH/N++.bin.x86_64
-    ./main.py
+    cp $NPROFILE_PATH nprofile_previous
+
+    libTAS --non-interactive --read ./N++.bin.x86_64.ltm $NPP_BIN_PATH
+
+    cp $NPROFILE_PATH nprofile_current
+
+    ./patch.py
 done
 ```
 
-Here is what it looks like for me:
+Here is what running it roughly looks like:
 
 https://github.com/user-attachments/assets/80b9f3c3-b5b9-40c9-af84-e429318a7081
 
@@ -37,3 +50,19 @@ https://github.com/user-attachments/assets/80b9f3c3-b5b9-40c9-af84-e429318a7081
 
 - The main developer of libTAS, Kilaye/[Clément Gallet](https://github.com/clementgallet), for fixing a bug in libTAS for me that prevented N++ from running
 - The Discord member Eddy/eddymatagallos, for having created and giving me a file that documents what all of the save file's bytes stand for
+
+## Miscellaneous commands
+
+Listing all `nprofile` (save files) on the computer, using `ls -lh` to show their modification times and sizes:
+
+```bash
+find ~ -name nprofile | xargs ls -l
+```
+
+Diffing `nprofile_previous` against `nprofile_current`:
+
+```bash
+xxd -R never nprofile_previous nprofile_previous.xxd
+xxd -R never nprofile_current nprofile_current.xxd
+diff nprofile_previous.xxd nprofile_current.xxd
+```
