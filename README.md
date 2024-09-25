@@ -29,6 +29,10 @@ while true; do
 done
 ```
 
+Here is what it looks like for me:
+
+https://github.com/user-attachments/assets/80b9f3c3-b5b9-40c9-af84-e429318a7081
+
 ## Credits
 
 - The main developer of libTAS, Kilaye/[Clément Gallet](https://github.com/clementgallet), for fixing a bug in libTAS for me that prevented N++ from running
