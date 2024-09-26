@@ -11,8 +11,10 @@ This program has been developed on Ubuntu 24.04, but it should work on most othe
 3. At the top of the `libTAS` window is a field called `Game executable`. You'll fill this by pressing the `Browse` button to the right of it. Find the `N++.bin.x86_64` on your computer. In my case its path was `/home/<user>/snap/steam/common/.local/share/Steam/steamapps/common/N++/N++.bin.x86_64`, but it is also likely to be `/home/<user>/.steam/steam/steamapps/common/N++/N++.bin.x86_64`.
 
 There are some libTAS settings that need to be changed for N++ to run.
-At the top of the libTAS window is a `Settings` button. Click that, and then click `Runtime`. 4. Under the `General` header, check the `Virtual Steam client` box. 5. At the top of the Settings page is a submenu called `Audio`. Go there, and under the `Audio Control` header, check the `Disable` box. You can now close the settings menu.
+At the top of the libTAS window is a `Settings` button. Click that, and then click `Runtime`.
 
+4. Under the `General` header, check the `Virtual Steam client` box.
+5. At the top of the Settings page is a submenu called `Audio`. Go there, and under the `Audio Control` header, check the `Disable` box. You can now close the settings menu.
 6. Press the `Start` button, and N++ should open, but be paused. You can unpause it at any time by keeping the libTAS window next to it, and pressing the `Pause` checkbox that's found at the bottom-left corner of the screen.
 
 In order to record a movie, you'll want to press the `Stop` button in libTAS (or close the game), and press the `Movie recording` checkbox that's found below the `Game executable` text. You can then toggle between the `Recording` and `Playback` options in it.
