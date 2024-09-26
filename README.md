@@ -23,10 +23,12 @@ My PC needs to have the resolution all the way down to 1280x720 in order to run 
 
 ## Replaying the recording in an infinite loop using libTAS
 
-1. In this cloned/downloaded repository its directory, open a new terminal (Ctrl+Alt+T on Ubuntu, and then use `cd` to navigate to the directory)
-2. Change `NPROFILE_PATH` its value in the below command so it points to where your `nprofile` file is
-3. Change `NPP_BIN_PATH` its value in the below command so it points to where your `N++.bin.x86_64` file is
-4. Run the command
+1. In this cloned/downloaded repository its directory, and open a new terminal in it (Ctrl+Alt+T on Ubuntu, and then use `cd` to navigate to the directory)
+2. Make a backup of your `nprofile` save file, since you probably don't want to lose the progress you made in your personal game (you can list all `nprofile` files on your computer by running `find ~ -name nprofile | xargs ls -lh`)
+3. Overwrite your personal `nprofile` file with the one in this repository
+4. Change `NPROFILE_PATH` its value in the below command so it points to where your `nprofile` file is
+5. Change `NPP_BIN_PATH` its value in the below command so it points to where your `N++.bin.x86_64` file is
+6. Run the command
 
 ```bash
 NPROFILE_PATH=~/.local/share/Metanet/N++/nprofile
@@ -54,11 +56,3 @@ https://github.com/user-attachments/assets/80b9f3c3-b5b9-40c9-af84-e429318a7081
 
 - The main developer of libTAS, Kilaye/[Clément Gallet](https://github.com/clementgallet), for fixing a bug in libTAS for me that prevented N++ from running
 - The Discord member Eddy/eddymatagallos, for having created and giving me a file that documents what all of the save file's bytes stand for
-
-## Miscellaneous commands
-
-Listing all `nprofile` (save files) on the computer, using `ls -lh` to show their modification times and sizes:
-
-```bash
-find ~ -name nprofile | xargs ls -l
-```
