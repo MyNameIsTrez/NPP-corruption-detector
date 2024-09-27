@@ -25,7 +25,7 @@ My PC needs to have the resolution all the way down to 1280x720 in order to run 
 
 ## Replaying the recording in an infinite loop using libTAS
 
-1. In this cloned/downloaded repository its directory, and open a new terminal in it (Ctrl+Alt+T on Ubuntu, and then use `cd` to navigate to the directory)
+1. In this cloned/downloaded repository its directory, and open a new terminal in it. Note that libTAS doesn't like VS Code's bash terminal, so open a new one with Ctrl+Alt+T on Ubuntu, and then use `cd` to navigate to the directory
 2. Make a backup of your `nprofile` save file, since you probably don't want to lose the progress you made in your personal game (you can list all `nprofile` files on your computer by running `find ~ -name nprofile | xargs ls -lh`)
 3. Overwrite your personal `nprofile` file with the one in this repository
 4. Change `NPROFILE_PATH` its value in the below command so it points to where your `nprofile` file is
@@ -42,6 +42,8 @@ while true; do
 
     cp $NPROFILE_PATH nprofile_current
 
+    expr `cat runs 2>/dev/null` + 1 > runs
+
     ./patch.py nprofile_previous nprofile_current || break
 
     xxd -R never nprofile_previous nprofile_previous.xxd
@@ -49,6 +51,8 @@ while true; do
     diff nprofile_previous.xxd nprofile_current.xxd || break
 done
 ```
+
+You should see a `runs` file gets created by this command. It contains a number starting at 1, which gets incremented by 1 every time the command loops.
 
 Here is what running it roughly looks like:
 
